@@ -8,6 +8,11 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    if (!supabase) {
+      setLoading(false)
+      return
+    }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
       setLoading(false)
@@ -20,13 +25,20 @@ export function AuthProvider({ children }) {
     return () => subscription.unsubscribe()
   }, [])
 
-  const signUp = (email, password) =>
-    supabase.auth.signUp({ email, password })
+  const signUp = async (email, password) => {
+    if (!supabase) return { error: { message: 'Supabase not configured yet.' } }
+    return supabase.auth.signUp({ email, password })
+  }
 
-  const signIn = (email, password) =>
-    supabase.auth.signInWithPassword({ email, password })
+  const signIn = async (email, password) => {
+    if (!supabase) return { error: { message: 'Supabase not configured yet.' } }
+    return supabase.auth.signInWithPassword({ email, password })
+  }
 
-  const signOut = () => supabase.auth.signOut()
+  const signOut = async () => {
+    if (!supabase) return
+    return supabase.auth.signOut()
+  }
 
   return (
     <AuthContext.Provider value={{ user, loading, signUp, signIn, signOut }}>
