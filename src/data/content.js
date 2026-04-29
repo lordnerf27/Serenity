@@ -7,7 +7,7 @@ export const meditationThemes = [
     color: 'from-blue-50 to-cyan-50',
     accent: 'text-blue-400',
     sessions: [
-      { id: 'dc-1', title: 'Body Scan Release', duration: '10 min', level: 'Beginner', description: 'Slowly release tension from every part of your body.' },
+      { id: 'dc-1', title: 'Body Scan Release', duration: '5 min', level: 'Beginner', description: 'Slowly release tension from every part of your body.', audioUrl: 'https://ndvsnpxdcjkgeeyogrex.supabase.co/storage/v1/object/public/Audio/5%20min%20track%20-%20calm%20%26%20relaxation.mp3' },
       { id: 'dc-2', title: 'Ocean Breath', duration: '8 min', level: 'Beginner', description: 'Let your breath flow like gentle waves on a shore.' },
       { id: 'dc-3', title: 'Stillness Within', duration: '15 min', level: 'Intermediate', description: 'Discover the quiet space that lives inside you.' },
       { id: 'dc-4', title: 'Deep Letting Go', duration: '20 min', level: 'Intermediate', description: 'A deep practice of releasing what no longer serves you.' },
@@ -23,7 +23,7 @@ export const meditationThemes = [
     color: 'from-violet-50 to-purple-50',
     accent: 'text-violet-400',
     sessions: [
-      { id: 'sf-1', title: 'Single Point', duration: '10 min', level: 'Beginner', description: 'Train your attention on one single anchor point.' },
+      { id: 'sf-1', title: 'Single Point', duration: '7 min', level: 'Beginner', description: 'Train your attention on one single anchor point.', audioUrl: 'https://ndvsnpxdcjkgeeyogrex.supabase.co/storage/v1/object/public/Audio/7%20min%20track%20-%20deep%20focus.mp3' },
       { id: 'sf-2', title: 'Clear Mind', duration: '8 min', level: 'Beginner', description: 'Sweep away mental clutter before your work begins.' },
       { id: 'sf-3', title: 'Deep Work Prep', duration: '12 min', level: 'Intermediate', description: 'Prime your mind for a session of focused deep work.' },
       { id: 'sf-4', title: 'Laser Attention', duration: '15 min', level: 'Intermediate', description: 'Build sustained attention through gentle redirection.' },
@@ -55,7 +55,7 @@ export const meditationThemes = [
     color: 'from-green-50 to-emerald-50',
     accent: 'text-emerald-400',
     sessions: [
-      { id: 'ea-1', title: 'Grounding Now', duration: '8 min', level: 'Beginner', description: 'Come back to the present moment and feel safe.' },
+      { id: 'ea-1', title: 'Grounding Now', duration: '10 min', level: 'Beginner', description: 'Come back to the present moment and feel safe.', audioUrl: 'https://ndvsnpxdcjkgeeyogrex.supabase.co/storage/v1/object/public/Audio/10%20min%20track%20-%20ANXIETY.mp3' },
       { id: 'ea-2', title: 'Worry Release', duration: '12 min', level: 'Beginner', description: 'Gently acknowledge and release anxious thoughts.' },
       { id: 'ea-3', title: 'Safe Space', duration: '15 min', level: 'All levels', description: 'Build an inner sanctuary you can return to anytime.' },
       { id: 'ea-4', title: 'The Breath Anchor', duration: '10 min', level: 'Beginner', description: 'Use the breath as a steady anchor in uncertain moments.' },
