@@ -1,32 +1,36 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import Card from '../components/ui/Card'
-import { Wind, Moon, Sparkles, ChevronRight } from 'lucide-react'
+import { Wind, Moon, Sparkles, ChevronRight, Flame } from 'lucide-react'
+import { dailyQuotes } from '../data/content'
 
 const sections = [
   {
     to: '/meditate',
     icon: Sparkles,
-    color: 'bg-mist-300/40',
-    iconColor: 'text-mist-400',
+    bg: 'bg-violet-50',
+    iconColor: 'text-violet-400',
     title: 'Guided Meditation',
     subtitle: 'Find your calm',
+    count: '6 themes',
   },
   {
     to: '/breathe',
     icon: Wind,
-    color: 'bg-sage-300/30',
-    iconColor: 'text-sage-500',
+    bg: 'bg-emerald-50',
+    iconColor: 'text-emerald-400',
     title: 'Breathing',
     subtitle: 'Reset with your breath',
+    count: '3 techniques',
   },
   {
     to: '/sleep',
     icon: Moon,
-    color: 'bg-cream-200',
-    iconColor: 'text-stone-600',
+    bg: 'bg-indigo-50',
+    iconColor: 'text-indigo-400',
     title: 'Sleep Sounds',
     subtitle: 'Drift off peacefully',
+    count: '8 sounds',
   },
 ]
 
@@ -41,55 +45,63 @@ export default function Home() {
   const { user } = useAuth()
   const navigate = useNavigate()
   const name = user?.email?.split('@')[0] ?? 'there'
+  const quote = dailyQuotes[new Date().getDay() % dailyQuotes.length]
 
   return (
-    <div className="px-5 pt-14 pb-6 safe-top">
+    <div className="px-5 pb-8 safe-top">
       {/* Header */}
-      <div className="mb-8">
-        <p className="text-stone-400 text-sm">{greeting()},</p>
-        <h1 className="text-2xl font-semibold text-stone-800 tracking-tight capitalize">{name} 👋</h1>
+      <div className="pt-14 mb-8 flex items-start justify-between">
+        <div>
+          <p className="text-stone-400 text-sm">{greeting()},</p>
+          <h1 className="text-2xl font-semibold text-stone-800 tracking-tight capitalize mt-0.5">{name} 👋</h1>
+        </div>
+        <div className="w-10 h-10 rounded-full bg-sage-300/30 flex items-center justify-center mt-1">
+          <Flame size={18} className="text-sage-500" strokeWidth={1.5} />
+        </div>
       </div>
 
       {/* Daily quote */}
-      <Card className="mb-8 bg-gradient-to-br from-sage-300/20 to-mist-300/20 border border-sage-300/20">
-        <p className="text-stone-600 text-sm italic leading-relaxed">
-          "Almost everything will work again if you unplug it for a few minutes — including you."
-        </p>
-        <p className="text-stone-400 text-xs mt-2">— Anne Lamott</p>
-      </Card>
+      <div className="mb-8 bg-gradient-to-br from-sage-300/15 to-mist-300/15 rounded-3xl p-5 border border-sage-300/20">
+        <p className="text-[10px] font-semibold text-sage-500 tracking-widest uppercase mb-2">Daily Reflection</p>
+        <p className="text-stone-600 text-sm italic leading-relaxed">"{quote.text}"</p>
+        <p className="text-stone-400 text-xs mt-2">— {quote.author}</p>
+      </div>
 
       {/* Section title */}
-      <h2 className="text-xs font-semibold text-stone-400 tracking-widest uppercase mb-3">
+      <p className="text-[10px] font-semibold text-stone-400 tracking-widest uppercase mb-3">
         What would you like to do?
-      </h2>
+      </p>
 
       {/* Main sections */}
-      <div className="flex flex-col gap-3">
-        {sections.map(({ to, icon: Icon, color, iconColor, title, subtitle }) => (
-          <Card key={to} onClick={() => navigate(to)} className="flex items-center gap-4">
-            <div className={`w-12 h-12 rounded-2xl ${color} flex items-center justify-center flex-shrink-0`}>
+      <div className="flex flex-col gap-3 mb-8">
+        {sections.map(({ to, icon: Icon, bg, iconColor, title, subtitle, count }) => (
+          <Card key={to} onClick={() => navigate(to)} className="flex items-center gap-4 py-4">
+            <div className={`w-12 h-12 rounded-2xl ${bg} flex items-center justify-center flex-shrink-0`}>
               <Icon size={22} className={iconColor} strokeWidth={1.5} />
             </div>
-            <div className="flex-1">
-              <p className="font-medium text-stone-800 text-sm">{title}</p>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-stone-800 text-sm">{title}</p>
               <p className="text-stone-400 text-xs mt-0.5">{subtitle}</p>
             </div>
-            <ChevronRight size={16} className="text-stone-300" />
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <span className="text-[10px] text-stone-300 font-medium">{count}</span>
+              <ChevronRight size={16} className="text-stone-300" />
+            </div>
           </Card>
         ))}
       </div>
 
       {/* Continue where you left off */}
-      <h2 className="text-xs font-semibold text-stone-400 tracking-widest uppercase mt-8 mb-3">
+      <p className="text-[10px] font-semibold text-stone-400 tracking-widest uppercase mb-3">
         Continue where you left off
-      </h2>
-      <Card className="flex items-center gap-4 opacity-50">
+      </p>
+      <Card className="flex items-center gap-4 py-4 opacity-40">
         <div className="w-12 h-12 rounded-2xl bg-cream-200 flex items-center justify-center flex-shrink-0">
           <Sparkles size={20} className="text-stone-400" strokeWidth={1.5} />
         </div>
         <div className="flex-1">
           <p className="font-medium text-stone-600 text-sm">No recent sessions yet</p>
-          <p className="text-stone-400 text-xs mt-0.5">Start meditating to track progress</p>
+          <p className="text-stone-400 text-xs mt-0.5">Your history will appear here</p>
         </div>
       </Card>
     </div>

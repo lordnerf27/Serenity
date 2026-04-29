@@ -4,9 +4,11 @@ import { supabase } from './lib/supabase'
 import AppShell from './components/layout/AppShell'
 import Home from './pages/Home'
 import Meditate from './pages/Meditate'
+import MeditateTheme from './pages/MeditateTheme'
 import Breathe from './pages/Breathe'
 import Sleep from './pages/Sleep'
 import Progress from './pages/Progress'
+import Player from './pages/Player'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 
@@ -19,7 +21,6 @@ function PrivateRoute({ children }) {
       <div className="w-8 h-8 rounded-full border-2 border-sage-300 border-t-sage-500 animate-spin" />
     </div>
   )
-  // If Supabase isn't configured, show app in preview mode without auth
   if (!isConfigured) return children
   return user ? children : <Navigate to="/login" replace />
 }
@@ -41,15 +42,21 @@ export default function App() {
           </div>
         )}
         <Routes>
+          {/* Public auth routes */}
           <Route path="/login"  element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
 
+          {/* Full-screen player — outside AppShell so no bottom nav */}
+          <Route path="/player/:themeId/:sessionId" element={<PrivateRoute><Player /></PrivateRoute>} />
+
+          {/* Protected app routes with bottom nav */}
           <Route element={<PrivateRoute><AppShell /></PrivateRoute>}>
-            <Route path="/"         element={<Home />} />
-            <Route path="/meditate" element={<Meditate />} />
-            <Route path="/breathe"  element={<Breathe />} />
-            <Route path="/sleep"    element={<Sleep />} />
-            <Route path="/progress" element={<Progress />} />
+            <Route path="/"                      element={<Home />} />
+            <Route path="/meditate"              element={<Meditate />} />
+            <Route path="/meditate/:themeId"     element={<MeditateTheme />} />
+            <Route path="/breathe"               element={<Breathe />} />
+            <Route path="/sleep"                 element={<Sleep />} />
+            <Route path="/progress"              element={<Progress />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />

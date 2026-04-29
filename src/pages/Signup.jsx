@@ -26,15 +26,15 @@ export default function Signup() {
   }
 
   return (
-    <div className="min-h-full flex flex-col justify-between px-6 py-12 safe-top">
-      <div>
-        <div className="mb-12 text-center">
-          <div className="text-4xl mb-3">🌿</div>
-          <h1 className="text-2xl font-semibold text-stone-800 tracking-tight">Begin your journey</h1>
-          <p className="text-stone-400 text-sm mt-1">Create a free account</p>
+    <div className="min-h-screen flex flex-col bg-cream-50 safe-top">
+      <div className="flex-1 flex flex-col items-center justify-center px-6 pt-16 pb-8">
+        <div className="w-16 h-16 rounded-3xl bg-sage-300/20 flex items-center justify-center mb-6">
+          <span className="text-3xl">🌿</span>
         </div>
+        <h1 className="text-2xl font-semibold text-stone-800 tracking-tight text-center">Begin your journey</h1>
+        <p className="text-stone-400 text-sm mt-1 text-center">Free forever. No credit card needed.</p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="w-full max-w-sm mt-10 flex flex-col gap-4">
           <Input
             label="Email"
             type="email"
@@ -60,20 +60,24 @@ export default function Signup() {
             required
           />
           {error && (
-            <p className="text-sm text-red-400 text-center bg-red-50 rounded-2xl py-2 px-4">{error}</p>
+            <div className="bg-red-50 border border-red-100 rounded-2xl px-4 py-3">
+              <p className="text-sm text-red-400 text-center">{error}</p>
+            </div>
           )}
           <Button type="submit" disabled={loading} className="mt-2">
-            {loading ? 'Creating account…' : 'Get started'}
+            {loading ? 'Creating account…' : 'Get started — it\'s free'}
           </Button>
         </form>
       </div>
 
-      <p className="text-center text-sm text-stone-400 mt-8">
-        Already have an account?{' '}
-        <Link to="/login" className="text-sage-500 font-medium">
-          Sign in
-        </Link>
-      </p>
+      <div className="px-6 pb-10 text-center safe-bottom">
+        <p className="text-sm text-stone-400">
+          Already have an account?{' '}
+          <Link to="/login" className="text-sage-500 font-semibold">
+            Sign in
+          </Link>
+        </p>
+      </div>
     </div>
   )
 }

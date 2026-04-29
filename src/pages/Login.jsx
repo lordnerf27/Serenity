@@ -23,15 +23,16 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-full flex flex-col justify-between px-6 py-12 safe-top">
-      <div>
-        <div className="mb-12 text-center">
-          <div className="text-4xl mb-3">🌿</div>
-          <h1 className="text-2xl font-semibold text-stone-800 tracking-tight">Welcome back</h1>
-          <p className="text-stone-400 text-sm mt-1">Continue your journey</p>
+    <div className="min-h-screen flex flex-col bg-cream-50 safe-top">
+      {/* Top visual area */}
+      <div className="flex-1 flex flex-col items-center justify-center px-6 pt-16 pb-8">
+        <div className="w-16 h-16 rounded-3xl bg-sage-300/20 flex items-center justify-center mb-6">
+          <span className="text-3xl">🌿</span>
         </div>
+        <h1 className="text-2xl font-semibold text-stone-800 tracking-tight text-center">Welcome back</h1>
+        <p className="text-stone-400 text-sm mt-1 text-center">Continue your journey to peace</p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="w-full max-w-sm mt-10 flex flex-col gap-4">
           <Input
             label="Email"
             type="email"
@@ -49,7 +50,9 @@ export default function Login() {
             required
           />
           {error && (
-            <p className="text-sm text-red-400 text-center bg-red-50 rounded-2xl py-2 px-4">{error}</p>
+            <div className="bg-red-50 border border-red-100 rounded-2xl px-4 py-3">
+              <p className="text-sm text-red-400 text-center">{error}</p>
+            </div>
           )}
           <Button type="submit" disabled={loading} className="mt-2">
             {loading ? 'Signing in…' : 'Sign in'}
@@ -57,12 +60,15 @@ export default function Login() {
         </form>
       </div>
 
-      <p className="text-center text-sm text-stone-400 mt-8">
-        New here?{' '}
-        <Link to="/signup" className="text-sage-500 font-medium">
-          Create an account
-        </Link>
-      </p>
+      {/* Bottom link */}
+      <div className="px-6 pb-10 text-center safe-bottom">
+        <p className="text-sm text-stone-400">
+          New here?{' '}
+          <Link to="/signup" className="text-sage-500 font-semibold">
+            Create a free account
+          </Link>
+        </p>
+      </div>
     </div>
   )
 }
