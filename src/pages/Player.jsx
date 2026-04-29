@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { meditationThemes, sleepSounds } from '../data/content'
+import { useMediaSession } from '../hooks/useMediaSession'
+import { saveSession } from '../hooks/useProgress'
+import { useAuth } from '../context/AuthContext'
+import SleepTimer from '../components/ui/SleepTimer'
 import { ArrowLeft, Play, Pause, SkipBack, SkipForward, Volume2 } from 'lucide-react'
 
 function formatTime(seconds) {
@@ -12,8 +16,10 @@ function formatTime(seconds) {
 
 export default function Player() {
   const { themeId, sessionId } = useParams()
-  const navigate = useNavigate()
-  const audioRef = useRef(null)
+  const navigate   = useNavigate()
+  const { user }   = useAuth()
+  const audioRef   = useRef(null)
+  const startedAt  = useRef(null) // track actual listen time
 
   const [playing, setPlaying]   = useState(false)
   const [current, setCurrent]   = useState(0)
@@ -22,12 +28,12 @@ export default function Player() {
   const [loading, setLoading]   = useState(true)
   const [error, setError]       = useState(false)
 
-  // Resolve content and audioUrl from data
+  // Resolve content from data
   const isSleep = themeId === 'sleep'
   let title, subtitle, emoji, gradient, accent, audioUrl
 
   if (isSleep) {
-    const sound = sleepSounds.find(s => s.id === sessionId)
+    const sound  = sleepSounds.find(s => s.id === sessionId)
     title    = sound?.title    ?? 'Sound'
     subtitle = sound?.desc     ?? ''
     emoji    = sound?.emoji    ?? '🌙'
@@ -45,27 +51,73 @@ export default function Player() {
     audioUrl = session?.audioUrl    ?? null
   }
 
-  // Set volume on mount
+  // Media Session API — keeps audio playing on lock screen
+  const mediaSession = useMediaSession({
+    title,
+    onPlay:        () => { audioRef.current?.play(); setPlaying(true) },
+    onPause:       () => { audioRef.current?.pause(); setPlaying(false) },
+    onSeekBack:    () => skipBy(-15),
+    onSeekForward: () => skipBy(15),
+  })
+
   useEffect(() => {
     if (audioRef.current) audioRef.current.volume = volume
   }, [])
 
+  useEffect(() => {
+    mediaSession.update(playing)
+  }, [playing, title])
+
+  useEffect(() => {
+    return () => mediaSession.clear()
+  }, [])
+
+  // Core controls
   const togglePlay = () => {
     if (!audioRef.current || !audioUrl) return
     if (playing) {
       audioRef.current.pause()
       setPlaying(false)
     } else {
+      if (!startedAt.current) startedAt.current = Date.now()
       audioRef.current.play().catch(() => setError(true))
       setPlaying(true)
     }
   }
 
-  const handleTimeUpdate    = () => { if (audioRef.current) setCurrent(audioRef.current.currentTime) }
+  const skipBy = (secs) => {
+    if (!audioRef.current) return
+    audioRef.current.currentTime = Math.max(0, Math.min(duration || 0, current + secs))
+  }
+
+  // Audio element handlers
+  const handleTimeUpdate     = () => { if (audioRef.current) setCurrent(audioRef.current.currentTime) }
   const handleLoadedMetadata = () => { if (audioRef.current) { setDuration(audioRef.current.duration); setLoading(false) } }
-  const handleCanPlay       = () => setLoading(false)
-  const handleError         = () => { setError(true); setLoading(false) }
-  const handleEnded         = () => { setPlaying(false); setCurrent(0) }
+  const handleCanPlay        = () => setLoading(false)
+  const handleError          = () => { setError(true); setLoading(false) }
+
+  const handleEnded = async () => {
+    setPlaying(false)
+    setCurrent(0)
+    const durationSeconds = duration || (startedAt.current ? Math.round((Date.now() - startedAt.current) / 1000) : 0)
+
+    // Save session to Supabase
+    if (user && !isSleep) {
+      await saveSession({ userId: user.id, themeId, sessionId, sessionTitle: title, durationSeconds })
+    }
+
+    // Navigate to completion screen with data in router state
+    const theme = meditationThemes.find(t => t.id === themeId)
+    navigate('/complete', {
+      replace: true,
+      state: { title, emoji, gradient, durationSeconds, streak: null },
+    })
+  }
+
+  // Sleep timer expired — stop audio
+  const handleTimerExpire = () => {
+    if (audioRef.current) { audioRef.current.pause(); setPlaying(false) }
+  }
 
   const handleSeek = (e) => {
     const val = Number(e.target.value)
@@ -78,9 +130,6 @@ export default function Player() {
     setVolume(val)
     if (audioRef.current) audioRef.current.volume = val
   }
-
-  const skipBack    = () => { if (audioRef.current) audioRef.current.currentTime = Math.max(0, current - 15) }
-  const skipForward = () => { if (audioRef.current && duration) audioRef.current.currentTime = Math.min(duration, current + 15) }
 
   const progress = duration > 0 ? (current / duration) * 100 : 0
 
@@ -110,7 +159,10 @@ export default function Player() {
         <p className="text-xs font-semibold text-stone-500 tracking-widest uppercase">
           {isSleep ? 'Sleep Sound' : 'Meditation'}
         </p>
-        <div className="w-9 h-9" />
+        {isSleep
+          ? <SleepTimer onExpire={handleTimerExpire} />
+          : <div className="w-9 h-9" />
+        }
       </div>
 
       {/* Album art */}
@@ -153,7 +205,7 @@ export default function Player() {
 
         {/* Play controls */}
         <div className="flex items-center justify-center gap-8 mt-4">
-          <button onClick={skipBack} disabled={!audioUrl} className="w-11 h-11 flex items-center justify-center opacity-50 active:opacity-30 disabled:opacity-20">
+          <button onClick={() => skipBy(-15)} disabled={!audioUrl} className="w-11 h-11 flex items-center justify-center opacity-50 active:opacity-30 disabled:opacity-20">
             <SkipBack size={22} className="text-stone-600" fill="currentColor" />
           </button>
 
@@ -168,7 +220,7 @@ export default function Player() {
             }
           </button>
 
-          <button onClick={skipForward} disabled={!audioUrl} className="w-11 h-11 flex items-center justify-center opacity-50 active:opacity-30 disabled:opacity-20">
+          <button onClick={() => skipBy(15)} disabled={!audioUrl} className="w-11 h-11 flex items-center justify-center opacity-50 active:opacity-30 disabled:opacity-20">
             <SkipForward size={22} className="text-stone-600" fill="currentColor" />
           </button>
         </div>

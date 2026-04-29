@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import Card from '../components/ui/Card'
+import PWAInstallBanner from '../components/ui/PWAInstallBanner'
 import { Wind, Moon, Sparkles, ChevronRight, Flame } from 'lucide-react'
 import { dailyQuotes } from '../data/content'
 
@@ -104,6 +105,8 @@ export default function Home() {
           <p className="text-stone-400 text-xs mt-0.5">Your history will appear here</p>
         </div>
       </Card>
+
+      <PWAInstallBanner />
     </div>
   )
 }

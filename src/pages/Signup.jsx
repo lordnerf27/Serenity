@@ -22,7 +22,7 @@ export default function Signup() {
     const { error } = await signUp(email, password)
     setLoading(false)
     if (error) return setError(error.message)
-    navigate('/')
+    navigate('/onboarding')
   }
 
   return (

@@ -41,14 +41,19 @@ export default function Login() {
             onChange={e => setEmail(e.target.value)}
             required
           />
-          <Input
-            label="Password"
-            type="password"
-            placeholder="••••••••"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-          />
+          <div>
+            <Input
+              label="Password"
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+            />
+            <Link to="/forgot-password" className="text-xs text-stone-400 text-right block mt-1.5 pr-1">
+              Forgot password?
+            </Link>
+          </div>
           {error && (
             <div className="bg-red-50 border border-red-100 rounded-2xl px-4 py-3">
               <p className="text-sm text-red-400 text-center">{error}</p>
