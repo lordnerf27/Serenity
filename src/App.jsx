@@ -13,6 +13,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Completion from './pages/Completion'
 import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 import Onboarding from './pages/Onboarding'
 
 const isConfigured = Boolean(supabase)
@@ -56,6 +57,7 @@ export default function App() {
           <Route path="/login"           element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/signup"          element={<PublicRoute><Signup /></PublicRoute>} />
           <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
+          <Route path="/reset-password"  element={<ResetPassword />} />
 
           {/* Full-screen flows — outside AppShell so no bottom nav */}
           <Route path="/player/:themeId/:sessionId" element={<PrivateRoute><Player /></PrivateRoute>} />

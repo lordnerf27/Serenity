@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, Navigate } from 'react-router-dom'
 import { Flame, Home, RotateCcw } from 'lucide-react'
 
 function formatDuration(seconds) {
@@ -24,7 +24,7 @@ export default function Completion() {
   const navigate  = useNavigate()
 
   // If navigated to directly without state, go home
-  if (!state) { navigate('/'); return null }
+  if (!state) return <Navigate to="/" replace />
 
   const { title, emoji, gradient, durationSeconds, streak } = state
   const message = messages[Math.floor(Math.random() * messages.length)]
