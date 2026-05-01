@@ -8,14 +8,11 @@ import { CheckCircle } from 'lucide-react'
 /**
  * ResetPassword
  * Supabase sends users here after they click the password-reset email link.
- * The recovery token arrives as a URL fragment (#access_token=...) which
- * Supabase JS v2 picks up automatically via onAuthStateChange (SIGNED_IN
- * with type PASSWORD_RECOVERY). We listen for that event, then let the
- * user set their new password.
+ * Handles both PKCE flow (?code= query param) and implicit flow (#access_token= hash).
  */
 export default function ResetPassword() {
   const navigate = useNavigate()
-  const [ready, setReady]         = useState(false) // true once Supabase parsed the token
+  const [ready, setReady]         = useState(false)
   const [password, setPassword]   = useState('')
   const [confirm, setConfirm]     = useState('')
   const [loading, setLoading]     = useState(false)
@@ -24,11 +21,29 @@ export default function ResetPassword() {
 
   useEffect(() => {
     if (!supabase) return
-    // Supabase JS v2 automatically exchanges the token in the URL hash.
-    // We listen for the PASSWORD_RECOVERY event to know it's ready.
+
+    // Handle PKCE flow: if there's a code query param, exchange it first
+    const params = new URLSearchParams(window.location.search)
+    const code = params.get('code')
+    if (code) {
+      supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
+        if (!error) setReady(true)
+        else setError('Reset link expired or already used. Please request a new one.')
+      })
+    }
+
+    // Handle implicit flow: token arrives as URL hash fragment
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event === 'PASSWORD_RECOVERY') setReady(true)
+      if (event === 'PASSWORD_RECOVERY' || event === 'SIGNED_IN') {
+        setReady(true)
+      }
     })
+
+    // Fallback: if the session was already established before mount
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session && !code) setReady(true)
+    })
+
     return () => subscription.unsubscribe()
   }, [])
 
@@ -42,7 +57,6 @@ export default function ResetPassword() {
     setLoading(false)
     if (error) return setError(error.message)
     setDone(true)
-    // Sign them in and send home after a short delay
     setTimeout(() => navigate('/'), 2500)
   }
 
@@ -67,9 +81,19 @@ export default function ResetPassword() {
           <p className="text-stone-400 text-sm mt-1">Make it something you'll remember</p>
         </div>
 
-        {!ready ? (
-          <div className="flex justify-center py-8">
+        {!ready && error ? (
+          <div className="flex flex-col items-center text-center gap-4 py-8">
+            <div className="bg-red-50 border border-red-100 rounded-2xl px-4 py-3 w-full">
+              <p className="text-sm text-red-400">{error}</p>
+            </div>
+            <a href="/forgot-password" className="text-sage-500 font-semibold text-sm">
+              Request a new reset link
+            </a>
+          </div>
+        ) : !ready ? (
+          <div className="flex flex-col items-center gap-3 py-8">
             <div className="w-6 h-6 rounded-full border-2 border-stone-200 border-t-stone-400 animate-spin" />
+            <p className="text-stone-400 text-xs">Verifying reset link…</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
