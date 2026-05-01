@@ -23,11 +23,12 @@ https://serenity-pi-three.vercel.app
 ## Project structure
 - src/pages/ — all screens
 - src/components/layout/ — AppShell, BottomNav
-- src/components/ui/ — Button, Card, Input, SleepTimer, PWAInstallBanner
+- src/components/ui/ — Button, Card, Input, SleepTimer, PWAInstallBanner, MoodSelector
 - src/context/AuthContext.jsx — Supabase auth wrapper
 - src/lib/supabase.js — Supabase client (null if env vars missing)
 - src/hooks/useMediaSession.js — Media Session API (lock screen audio)
-- src/hooks/useProgress.js — session fetch/stats from Supabase + saveSession()
+- src/hooks/useProgress.js — session fetch/stats from Supabase + saveSession() + updateSessionMood()
+- src/hooks/useReminder.js — daily reminder notifications (browser Notification API)
 - src/data/content.js — all content (themes, sessions, sounds, quotes)
 
 ## Screens / Routes
@@ -35,13 +36,13 @@ https://serenity-pi-three.vercel.app
 - /forgot-password — public, email reset
 - /reset-password — unguarded, receives Supabase recovery token from email link
 - /onboarding — private, first-run 3-step flow
-- / — Home
+- / — Home (with "Continue where you left off" showing last session)
 - /meditate → /meditate/:themeId — theme list → session list
 - /breathe — breathing techniques
 - /sleep — ambient sound grid
-- /progress — stats, streak, history
-- /player/:themeId/:sessionId — full-screen audio player
-- /complete — post-session completion screen
+- /progress — stats, streak, history, mood trend, reminder settings
+- /player/:themeId/:sessionId — full-screen audio player (with pre-session mood check-in)
+- /complete — post-session completion screen (with post-session mood check-in)
 
 ## Design language
 Minimalist, light, airy. Palette: cream backgrounds, sage green accents, mist/lavender secondary, warm stone text.
@@ -72,12 +73,19 @@ Custom Tailwind tokens: cream (50/100/200), sage (300/400/500), mist (300/400), 
 - [x] PWA install banner (beforeinstallprompt)
 - [x] PWA manifest + service worker
 - [x] Vercel auto-deploy
+- [x] Pre-session mood check-in (5-emoji scale, skippable, meditation only)
+- [x] Post-session mood check-in (before→after journey display)
+- [x] Mood trend on Progress page (average before vs after)
+- [x] Daily reminder notifications (browser Notification API, time picker, toggle)
+- [x] "Continue where you left off" on Home (shows last session from Supabase)
+- [x] Sleep sounds navigate to /sleep on end (not /complete)
+- [x] Real streak value on completion screen
 
 ## Supabase
 - URL: https://ndvsnpxdcjkgeeyogrex.supabase.co
 - Storage bucket: "Audio" (public) — holds MP3 files
-- Database table: "sessions" (must be created via SQL Editor if not done)
-- sessions table: id, user_id, theme_id, session_id, session_title, duration_seconds, completed_at
+- Database table: "sessions"
+- sessions table: id, user_id, theme_id, session_id, session_title, duration_seconds, completed_at, mood_before, mood_after
 
 ## Audio
 - 3 sessions have audioUrl: dc-1 (calm/relaxation 5min), sf-1 (deep focus 7min), ea-1 (anxiety 10min)
@@ -90,13 +98,14 @@ Custom Tailwind tokens: cream (50/100/200), sage (300/400/500), mist (300/400), 
 - serenity_goal = e.g. 'stress' (user's selected goal)
 - serenity_experience = e.g. 'new' (experience level)
 - serenity_pwa_dismissed = '1' (skip PWA banner)
+- serenity_reminder_enabled = '1' (daily reminder on)
+- serenity_reminder_time = e.g. '08:00' (preferred reminder time)
+- serenity_reminder_last_notified = 'YYYY-MM-DD' (prevents duplicate daily notifications)
 
 ## Known remaining issues
-1. Streak shows null on completion screen — Player.jsx passes streak: null hardcoded
-2. Sleep sounds navigate to /complete if audio ends — should go to /sleep instead
-3. "Continue where you left off" on Home is a placeholder — should show last session from useProgress
-4. No audio for 28 meditation sessions or any sleep sounds yet
-5. No subscription/paywall built yet (sessions without audioUrl show lock icon visually only)
+1. No audio for 28 meditation sessions or any sleep sounds yet
+2. No subscription/paywall built yet (sessions without audioUrl show lock icon visually only)
+3. Reminder notifications only fire while app is open (no push server yet)
 
 ## Environment variables
 VITE_SUPABASE_URL — project URL
