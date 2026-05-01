@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useProgress } from '../hooks/useProgress'
 import Card from '../components/ui/Card'
 import PWAInstallBanner from '../components/ui/PWAInstallBanner'
 import { Wind, Moon, Sparkles, ChevronRight, Flame } from 'lucide-react'
-import { dailyQuotes } from '../data/content'
+import { dailyQuotes, meditationThemes } from '../data/content'
 
 const sections = [
   {
@@ -45,8 +46,12 @@ function greeting() {
 export default function Home() {
   const { user } = useAuth()
   const navigate = useNavigate()
+  const { data: progressData } = useProgress()
   const name = user?.email?.split('@')[0] ?? 'there'
   const quote = dailyQuotes[new Date().getDay() % dailyQuotes.length]
+
+  const lastSession = progressData?.recentSessions?.[0] ?? null
+  const lastTheme   = lastSession ? meditationThemes.find(t => t.id === lastSession.theme_id) : null
 
   return (
     <div className="px-5 pb-8 safe-top">
@@ -96,15 +101,31 @@ export default function Home() {
       <p className="text-[10px] font-semibold text-stone-400 tracking-widest uppercase mb-3">
         Continue where you left off
       </p>
-      <Card className="flex items-center gap-4 py-4 opacity-40">
-        <div className="w-12 h-12 rounded-2xl bg-cream-200 flex items-center justify-center flex-shrink-0">
-          <Sparkles size={20} className="text-stone-400" strokeWidth={1.5} />
-        </div>
-        <div className="flex-1">
-          <p className="font-medium text-stone-600 text-sm">No recent sessions yet</p>
-          <p className="text-stone-400 text-xs mt-0.5">Your history will appear here</p>
-        </div>
-      </Card>
+      {lastSession ? (
+        <Card
+          onClick={() => navigate(`/player/${lastSession.theme_id}/${lastSession.session_id}`)}
+          className="flex items-center gap-4 py-4"
+        >
+          <div className="w-12 h-12 rounded-2xl bg-sage-300/20 flex items-center justify-center flex-shrink-0 text-2xl">
+            {lastTheme?.emoji ?? '🌿'}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="font-semibold text-stone-800 text-sm truncate">{lastSession.session_title}</p>
+            <p className="text-stone-400 text-xs mt-0.5">{lastTheme?.title ?? 'Meditation'}</p>
+          </div>
+          <ChevronRight size={16} className="text-stone-300 flex-shrink-0" />
+        </Card>
+      ) : (
+        <Card className="flex items-center gap-4 py-4 opacity-40">
+          <div className="w-12 h-12 rounded-2xl bg-cream-200 flex items-center justify-center flex-shrink-0">
+            <Sparkles size={20} className="text-stone-400" strokeWidth={1.5} />
+          </div>
+          <div className="flex-1">
+            <p className="font-medium text-stone-600 text-sm">No recent sessions yet</p>
+            <p className="text-stone-400 text-xs mt-0.5">Your history will appear here</p>
+          </div>
+        </Card>
+      )}
 
       <PWAInstallBanner />
     </div>

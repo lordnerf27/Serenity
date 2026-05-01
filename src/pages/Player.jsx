@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { meditationThemes, sleepSounds } from '../data/content'
 import { useMediaSession } from '../hooks/useMediaSession'
-import { saveSession } from '../hooks/useProgress'
+import { useProgress, saveSession } from '../hooks/useProgress'
 import { useAuth } from '../context/AuthContext'
 import SleepTimer from '../components/ui/SleepTimer'
 import { ArrowLeft, Play, Pause, SkipBack, SkipForward, Volume2 } from 'lucide-react'
@@ -20,6 +20,8 @@ export default function Player() {
   const { user }   = useAuth()
   const audioRef   = useRef(null)
   const startedAt  = useRef(null) // track actual listen time
+
+  const { data: progressData } = useProgress()
 
   const [playing, setPlaying]   = useState(false)
   const [current, setCurrent]   = useState(0)
@@ -101,16 +103,20 @@ export default function Player() {
     setCurrent(0)
     const durationSeconds = duration || (startedAt.current ? Math.round((Date.now() - startedAt.current) / 1000) : 0)
 
-    // Save session to Supabase
-    if (user && !isSleep) {
+    // Sleep sounds don't save sessions — just return to sleep screen
+    if (isSleep) {
+      navigate('/sleep', { replace: true })
+      return
+    }
+
+    // Save meditation session to Supabase
+    if (user) {
       await saveSession({ userId: user.id, themeId, sessionId, sessionTitle: title, durationSeconds })
     }
 
-    // Navigate to completion screen with data in router state
-    const theme = meditationThemes.find(t => t.id === themeId)
     navigate('/complete', {
       replace: true,
-      state: { title, emoji, gradient, durationSeconds, streak: null },
+      state: { title, emoji, gradient, durationSeconds, streak: progressData?.currentStreak ?? null },
     })
   }
 
