@@ -60,12 +60,25 @@ export function useProgress() {
       if (diff >= 0 && diff < 7) weekActivity[diff] = true
     })
 
+    // Mood averages — only from sessions that have mood data
+    const withMoodBefore = rows.filter(r => r.mood_before != null)
+    const withMoodAfter  = rows.filter(r => r.mood_after  != null)
+    const avgMoodBefore  = withMoodBefore.length
+      ? Math.round((withMoodBefore.reduce((a, r) => a + r.mood_before, 0) / withMoodBefore.length) * 10) / 10
+      : null
+    const avgMoodAfter   = withMoodAfter.length
+      ? Math.round((withMoodAfter.reduce((a, r) => a + r.mood_after, 0) / withMoodAfter.length) * 10) / 10
+      : null
+
     setData({
       totalSessions,
       totalMinutes,
       currentStreak: streak,
       recentSessions: rows.slice(0, 10),
       weekActivity,
+      avgMoodBefore,
+      avgMoodAfter,
+      moodSessionCount: Math.min(withMoodBefore.length, withMoodAfter.length),
     })
     setLoading(false)
   }
@@ -78,14 +91,27 @@ export function useProgress() {
 /**
  * saveSession
  * Call this when a session completes to persist it to Supabase.
+ * Returns { data: { id }, error } so callers can reference the row later
+ * (e.g. to update mood_after on the completion screen).
  */
-export async function saveSession({ userId, themeId, sessionId, sessionTitle, durationSeconds }) {
-  if (!supabase) return { error: 'Supabase not configured' }
+export async function saveSession({ userId, themeId, sessionId, sessionTitle, durationSeconds, moodBefore }) {
+  if (!supabase) return { data: null, error: 'Supabase not configured' }
   return supabase.from('sessions').insert({
     user_id:          userId,
     theme_id:         themeId,
     session_id:       sessionId,
     session_title:    sessionTitle,
     duration_seconds: Math.round(durationSeconds),
-  })
+    mood_before:      moodBefore ?? null,
+  }).select('id').single()
+}
+
+/**
+ * updateSessionMood
+ * Called from the Completion screen to save the post-session mood
+ * on the row that was created by saveSession.
+ */
+export async function updateSessionMood(sessionDbId, moodAfter) {
+  if (!supabase || !sessionDbId) return { error: 'Missing session ID or Supabase' }
+  return supabase.from('sessions').update({ mood_after: moodAfter }).eq('id', sessionDbId)
 }

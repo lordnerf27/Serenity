@@ -5,6 +5,7 @@ import { useMediaSession } from '../hooks/useMediaSession'
 import { useProgress, saveSession } from '../hooks/useProgress'
 import { useAuth } from '../context/AuthContext'
 import SleepTimer from '../components/ui/SleepTimer'
+import MoodSelector from '../components/ui/MoodSelector'
 import { ArrowLeft, Play, Pause, SkipBack, SkipForward, Volume2 } from 'lucide-react'
 
 function formatTime(seconds) {
@@ -23,12 +24,14 @@ export default function Player() {
 
   const { data: progressData } = useProgress()
 
-  const [playing, setPlaying]   = useState(false)
-  const [current, setCurrent]   = useState(0)
-  const [duration, setDuration] = useState(0)
-  const [volume, setVolume]     = useState(0.8)
-  const [loading, setLoading]   = useState(true)
-  const [error, setError]       = useState(false)
+  const [playing, setPlaying]       = useState(false)
+  const [current, setCurrent]       = useState(0)
+  const [duration, setDuration]     = useState(0)
+  const [volume, setVolume]         = useState(0.8)
+  const [loading, setLoading]       = useState(true)
+  const [error, setError]           = useState(false)
+  const [moodBefore, setMoodBefore] = useState(null)
+  const [showMoodCheck, setShowMoodCheck] = useState(true)
 
   // Resolve content from data
   const isSleep = themeId === 'sleep'
@@ -109,14 +112,23 @@ export default function Player() {
       return
     }
 
-    // Save meditation session to Supabase
+    // Save meditation session to Supabase (with pre-session mood if provided)
+    let savedSessionId = null
     if (user) {
-      await saveSession({ userId: user.id, themeId, sessionId, sessionTitle: title, durationSeconds })
+      const { data } = await saveSession({
+        userId: user.id, themeId, sessionId, sessionTitle: title, durationSeconds, moodBefore,
+      })
+      savedSessionId = data?.id ?? null
     }
 
     navigate('/complete', {
       replace: true,
-      state: { title, emoji, gradient, durationSeconds, streak: progressData?.currentStreak ?? null },
+      state: {
+        title, emoji, gradient, durationSeconds,
+        streak: progressData?.currentStreak ?? null,
+        moodBefore,
+        savedSessionId,
+      },
     })
   }
 
@@ -152,6 +164,23 @@ export default function Player() {
           onEnded={handleEnded}
           preload="metadata"
         />
+      )}
+
+      {/* Pre-session mood check-in (meditation with audio only) */}
+      {showMoodCheck && !isSleep && audioUrl && (
+        <div className="fixed inset-0 bg-white/90 backdrop-blur-md z-50 flex flex-col items-center justify-center px-6">
+          <div className="text-5xl mb-6">{emoji}</div>
+          <h2 className="text-xl font-semibold text-stone-800 tracking-tight mb-1">Before you begin</h2>
+          <p className="text-stone-400 text-xs mb-8">A quick check-in with yourself</p>
+          <MoodSelector
+            prompt="How are you feeling right now?"
+            onSelect={(value) => {
+              setMoodBefore(value)
+              setShowMoodCheck(false)
+            }}
+            onSkip={() => setShowMoodCheck(false)}
+          />
+        </div>
       )}
 
       {/* Top bar */}
