@@ -8,6 +8,10 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['icons/*.png'],
+      workbox: {
+        // Import push notification handler into the generated service worker
+        importScripts: ['/sw-push.js'],
+      },
       manifest: {
         name: 'Serenity',
         short_name: 'Serenity',
