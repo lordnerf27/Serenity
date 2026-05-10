@@ -29,7 +29,7 @@ export default function Signup() {
     <div className="min-h-screen flex flex-col bg-cream-50 safe-top">
       <div className="flex-1 flex flex-col items-center justify-center px-6 pt-16 pb-8">
         <div className="w-16 h-16 rounded-3xl bg-sage-300/20 flex items-center justify-center mb-6">
-          <span className="text-3xl">🌿</span>
+          <span className="text-3xl">🎧</span>
         </div>
         <h1 className="text-2xl font-semibold text-stone-800 tracking-tight text-center">Begin your journey</h1>
         <p className="text-stone-400 text-sm mt-1 text-center">Free forever. No credit card needed.</p>
@@ -60,7 +60,7 @@ export default function Signup() {
             required
           />
           {error && (
-            <div className="bg-red-50 border border-red-100 rounded-2xl px-4 py-3">
+            <div className="bg-red-900/20 border border-red-800/30 rounded-2xl px-4 py-3">
               <p className="text-sm text-red-400 text-center">{error}</p>
             </div>
           )}

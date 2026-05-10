@@ -38,9 +38,9 @@ export default function Progress() {
   const name = user?.email?.split('@')[0] ?? 'there'
 
   const stats = [
-    { icon: Flame, bg: 'bg-orange-50',   color: 'text-orange-400', value: data?.currentStreak ?? 0,                label: 'Day streak' },
+    { icon: Flame, bg: 'bg-orange-900/20',   color: 'text-orange-400', value: data?.currentStreak ?? 0,                label: 'Day streak' },
     { icon: Clock, bg: 'bg-sage-300/20', color: 'text-sage-500',   value: formatMinutes(data?.totalMinutes ?? 0), label: 'Total time' },
-    { icon: Star,  bg: 'bg-violet-50',   color: 'text-violet-400', value: data?.totalSessions ?? 0,               label: 'Sessions' },
+    { icon: Star,  bg: 'bg-violet-900/20',   color: 'text-violet-300', value: data?.totalSessions ?? 0,               label: 'Sessions' },
   ]
 
   const moodImproved = data?.avgMoodBefore != null && data?.avgMoodAfter != null
@@ -56,7 +56,7 @@ export default function Progress() {
         </div>
         <button
           onClick={signOut}
-          className="w-9 h-9 rounded-2xl bg-stone-50 border border-stone-100 flex items-center justify-center active:opacity-60"
+          className="w-9 h-9 rounded-2xl bg-cream-200 border border-cream-200 flex items-center justify-center active:opacity-60"
         >
           <LogOut size={15} className="text-stone-400" />
         </button>
@@ -86,7 +86,7 @@ export default function Progress() {
               <span className="text-3xl">{closestMoodEmoji(data.avgMoodBefore)}</span>
               <span className="text-[10px] text-stone-400">Before</span>
             </div>
-            <div className="text-stone-300 text-lg">→</div>
+            <div className="text-stone-400 text-lg">→</div>
             <div className="flex flex-col items-center gap-1">
               <span className="text-3xl">{closestMoodEmoji(data.avgMoodAfter)}</span>
               <span className="text-[10px] text-stone-400">After</span>
@@ -97,7 +97,7 @@ export default function Progress() {
               Your sessions are helping you feel better
             </p>
           )}
-          <p className="text-center text-[10px] text-stone-300 mt-2">
+          <p className="text-center text-[10px] text-stone-400 mt-2">
             Based on {data.moodSessionCount} session{data.moodSessionCount !== 1 ? 's' : ''}
           </p>
         </Card>
@@ -112,13 +112,13 @@ export default function Progress() {
             return (
               <div key={i} className="flex flex-col items-center gap-2">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors
-                  ${active ? 'bg-sage-400' : 'bg-cream-100'}`}>
+                  ${active ? 'bg-sage-400' : 'bg-cream-200'}`}>
                   {active
                     ? <Flame size={14} className="text-white" />
-                    : <div className="w-1.5 h-1.5 rounded-full bg-stone-200" />
+                    : <div className="w-1.5 h-1.5 rounded-full bg-stone-400" />
                   }
                 </div>
-                <span className={`text-[9px] font-medium ${active ? 'text-sage-500' : 'text-stone-300'}`}>{d}</span>
+                <span className={`text-[9px] font-medium ${active ? 'text-sage-500' : 'text-stone-400'}`}>{d}</span>
               </div>
             )
           })}
@@ -129,10 +129,10 @@ export default function Progress() {
       <Card className="mb-4">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
-            <div className={`w-9 h-9 rounded-2xl flex items-center justify-center ${enabled ? 'bg-sage-300/20' : 'bg-stone-50'}`}>
+            <div className={`w-9 h-9 rounded-2xl flex items-center justify-center ${enabled ? 'bg-sage-300/20' : 'bg-cream-200'}`}>
               {enabled
                 ? <Bell size={17} className="text-sage-500" strokeWidth={1.5} />
-                : <BellOff size={17} className="text-stone-300" strokeWidth={1.5} />
+                : <BellOff size={17} className="text-stone-400" strokeWidth={1.5} />
               }
             </div>
             <div>
@@ -146,20 +146,20 @@ export default function Progress() {
           {/* Toggle */}
           <button
             onClick={() => toggleReminder(!enabled)}
-            className={`w-11 h-6 rounded-full transition-colors relative ${enabled ? 'bg-sage-400' : 'bg-stone-200'}`}
+            className={`w-11 h-6 rounded-full transition-colors relative ${enabled ? 'bg-sage-400' : 'bg-stone-400'}`}
           >
-            <div className={`w-5 h-5 rounded-full bg-white shadow-sm absolute top-0.5 transition-all ${enabled ? 'left-[22px]' : 'left-0.5'}`} />
+            <div className={`w-5 h-5 rounded-full bg-cream-50 shadow-sm absolute top-0.5 transition-all ${enabled ? 'left-[22px]' : 'left-0.5'}`} />
           </button>
         </div>
 
         {enabled && (
-          <div className="flex items-center gap-3 pt-3 border-t border-stone-50">
+          <div className="flex items-center gap-3 pt-3 border-t border-cream-200">
             <label className="text-xs text-stone-400 flex-shrink-0">Remind me at</label>
             <input
               type="time"
               value={time}
               onChange={(e) => updateTime(e.target.value)}
-              className="flex-1 text-sm text-stone-700 font-medium bg-cream-50 rounded-xl px-3 py-2 border border-stone-100 outline-none focus:border-sage-300 transition-colors"
+              className="flex-1 text-sm text-stone-600 font-medium bg-cream-50 rounded-xl px-3 py-2 border border-cream-200 outline-none focus:border-sage-300 transition-colors"
             />
           </div>
         )}
@@ -176,13 +176,13 @@ export default function Progress() {
         <p className="text-[10px] font-semibold text-stone-400 tracking-widest uppercase mb-4">Recent sessions</p>
         {loading ? (
           <div className="flex justify-center py-6">
-            <div className="w-5 h-5 rounded-full border-2 border-stone-200 border-t-stone-400 animate-spin" />
+            <div className="w-5 h-5 rounded-full border-2 border-stone-400 border-t-stone-600 animate-spin" />
           </div>
         ) : !data?.recentSessions?.length ? (
           <div className="flex flex-col items-center py-6 gap-2">
             <span className="text-3xl">🌱</span>
             <p className="text-sm text-stone-400 text-center">No sessions yet</p>
-            <p className="text-xs text-stone-300 text-center leading-relaxed">
+            <p className="text-xs text-stone-400 text-center leading-relaxed">
               Complete your first meditation to start tracking your journey
             </p>
           </div>
@@ -194,7 +194,7 @@ export default function Progress() {
                   <Sparkles size={15} className="text-sage-500" strokeWidth={1.5} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-stone-700 truncate">{s.session_title}</p>
+                  <p className="text-sm font-medium text-stone-600 truncate">{s.session_title}</p>
                   <p className="text-xs text-stone-400">
                     {Math.round(s.duration_seconds / 60)} min · {formatRelativeDate(s.completed_at)}
                   </p>
@@ -203,7 +203,7 @@ export default function Progress() {
                 {s.mood_before != null && s.mood_after != null && (
                   <div className="flex items-center gap-1 flex-shrink-0">
                     <span className="text-sm">{MOODS.find(m => m.value === s.mood_before)?.emoji}</span>
-                    <span className="text-[10px] text-stone-300">→</span>
+                    <span className="text-[10px] text-stone-400">→</span>
                     <span className="text-sm">{MOODS.find(m => m.value === s.mood_after)?.emoji}</span>
                   </div>
                 )}
@@ -213,7 +213,7 @@ export default function Progress() {
         )}
       </Card>
 
-      <p className="text-center text-xs text-stone-300 mb-6">{user?.email}</p>
+      <p className="text-center text-xs text-stone-400 mb-6">{user?.email}</p>
     </div>
   )
 }

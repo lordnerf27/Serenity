@@ -10,7 +10,7 @@
 
   html {
     font-family: 'Inter', system-ui, sans-serif;
-    background-color: #FAFAF8;
+    background-color: #121019;
     height: 100%;
   }
 
@@ -19,8 +19,8 @@
     padding: 0;
     height: 100%;
     overflow: hidden;
-    background-color: #FAFAF8;
-    color: #3A3530;
+    background-color: #121019;
+    color: #e6def2;
   }
 
   #root {
@@ -42,7 +42,7 @@
   .scrollable::-webkit-scrollbar { display: none; }
 
   .glass {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(28, 26, 43, 0.8);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }

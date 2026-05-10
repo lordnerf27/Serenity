@@ -42,15 +42,15 @@ export default function Player() {
     title    = sound?.title    ?? 'Sound'
     subtitle = sound?.desc     ?? ''
     emoji    = sound?.emoji    ?? '🌙'
-    gradient = sound?.color    ?? 'from-indigo-50 to-blue-50'
-    accent   = 'text-indigo-400'
+    gradient = sound?.color    ?? 'from-indigo-900/30 to-blue-900/20'
+    accent   = 'text-indigo-300'
     audioUrl = sound?.audioUrl ?? null
   } else {
     const theme   = meditationThemes.find(t => t.id === themeId)
     const session = theme?.sessions.find(s => s.id === sessionId)
     title    = session?.title       ?? 'Session'
     subtitle = session?.description ?? ''
-    emoji    = theme?.emoji         ?? '🌿'
+    emoji    = theme?.emoji         ?? '🎧'
     gradient = theme?.color         ?? 'from-sage-300/20 to-mist-300/20'
     accent   = theme?.accent        ?? 'text-sage-500'
     audioUrl = session?.audioUrl    ?? null
@@ -168,7 +168,7 @@ export default function Player() {
 
       {/* Pre-session mood check-in (meditation with audio only) */}
       {showMoodCheck && !isSleep && audioUrl && (
-        <div className="fixed inset-0 bg-white/90 backdrop-blur-md z-50 flex flex-col items-center justify-center px-6">
+        <div className="fixed inset-0 bg-cream-50/95 backdrop-blur-md z-50 flex flex-col items-center justify-center px-6">
           <div className="text-5xl mb-6">{emoji}</div>
           <h2 className="text-xl font-semibold text-stone-800 tracking-tight mb-1">Before you begin</h2>
           <p className="text-stone-400 text-xs mb-8">A quick check-in with yourself</p>
@@ -187,11 +187,11 @@ export default function Player() {
       <div className="flex items-center justify-between px-5 pt-14 pb-4">
         <button
           onClick={() => navigate(-1)}
-          className="w-9 h-9 rounded-2xl bg-white/60 backdrop-blur flex items-center justify-center active:opacity-60"
+          className="w-9 h-9 rounded-2xl bg-cream-100/60 backdrop-blur flex items-center justify-center active:opacity-60"
         >
           <ArrowLeft size={17} className="text-stone-600" />
         </button>
-        <p className="text-xs font-semibold text-stone-500 tracking-widest uppercase">
+        <p className="text-xs font-semibold text-stone-600 tracking-widest uppercase">
           {isSleep ? 'Sleep Sound' : 'Meditation'}
         </p>
         {isSleep
@@ -202,16 +202,16 @@ export default function Player() {
 
       {/* Album art */}
       <div className="flex-1 flex flex-col items-center justify-center px-8 py-8">
-        <div className="w-52 h-52 rounded-[3rem] bg-white/50 backdrop-blur shadow-card flex items-center justify-center mb-8">
+        <div className="w-52 h-52 rounded-[3rem] bg-cream-100/50 backdrop-blur shadow-card flex items-center justify-center mb-8">
           <span className="text-7xl">{emoji}</span>
         </div>
         <h1 className="text-xl font-semibold text-stone-800 text-center tracking-tight">{title}</h1>
-        <p className="text-stone-500 text-sm text-center mt-2 leading-relaxed px-4">{subtitle}</p>
+        <p className="text-stone-600 text-sm text-center mt-2 leading-relaxed px-4">{subtitle}</p>
 
-        {!audioUrl && <p className="text-xs text-stone-300 mt-4 italic">Audio coming soon</p>}
+        {!audioUrl && <p className="text-xs text-stone-400 mt-4 italic">Audio coming soon</p>}
         {audioUrl && loading && !error && (
           <div className="mt-4 flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full border-2 border-stone-300 border-t-stone-500 animate-spin" />
+            <div className="w-3 h-3 rounded-full border-2 border-stone-400 border-t-stone-600 animate-spin" />
             <p className="text-xs text-stone-400">Loading audio…</p>
           </div>
         )}
@@ -219,7 +219,7 @@ export default function Player() {
       </div>
 
       {/* Controls panel */}
-      <div className="px-6 pb-10 bg-white/40 backdrop-blur-sm rounded-t-3xl pt-6">
+      <div className="px-6 pb-10 bg-cream-100/40 backdrop-blur-sm rounded-t-3xl pt-6">
         {/* Progress bar */}
         <div className="mb-1">
           <input
@@ -230,7 +230,7 @@ export default function Player() {
             onChange={handleSeek}
             disabled={!audioUrl || !duration}
             className="w-full h-1 rounded-full appearance-none cursor-pointer disabled:opacity-30"
-            style={{ background: `linear-gradient(to right, #8BAF9E ${progress}%, #e7e5e4 ${progress}%)` }}
+            style={{ background: `linear-gradient(to right, #9a82c0 ${progress}%, #262435 ${progress}%)` }}
           />
           <div className="flex justify-between mt-1.5">
             <span className="text-[10px] text-stone-400 tabular-nums">{formatTime(current)}</span>
@@ -271,7 +271,7 @@ export default function Player() {
             value={volume}
             onChange={handleVolumeChange}
             className="flex-1 h-1 rounded-full appearance-none cursor-pointer"
-            style={{ background: `linear-gradient(to right, #8BAF9E ${volume * 100}%, #e7e5e4 ${volume * 100}%)` }}
+            style={{ background: `linear-gradient(to right, #9a82c0 ${volume * 100}%, #262435 ${volume * 100}%)` }}
           />
         </div>
       </div>

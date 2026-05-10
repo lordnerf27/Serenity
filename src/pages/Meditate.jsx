@@ -23,12 +23,12 @@ export default function Meditate() {
               <span className="text-3xl flex-shrink-0">{theme.emoji}</span>
               <div className="flex-1 min-w-0">
                 <p className="font-semibold text-stone-800 text-sm">{theme.title}</p>
-                <p className="text-stone-500 text-xs mt-0.5 leading-snug">{theme.subtitle}</p>
+                <p className="text-stone-600 text-xs mt-0.5 leading-snug">{theme.subtitle}</p>
                 <p className="text-stone-400 text-[10px] mt-1.5 font-medium">
                   {theme.sessions.length} sessions
                 </p>
               </div>
-              <ChevronRight size={18} className="text-stone-300 flex-shrink-0" />
+              <ChevronRight size={18} className="text-stone-400 flex-shrink-0" />
             </div>
           </button>
         ))}

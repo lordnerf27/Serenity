@@ -43,9 +43,9 @@ export default function PWAInstallBanner() {
   if (!visible || installed) return null
 
   return (
-    <div className="fixed bottom-20 left-4 right-4 z-50 bg-white rounded-3xl shadow-card p-4 flex items-center gap-3 border border-stone-100">
+    <div className="fixed bottom-20 left-4 right-4 z-50 bg-cream-100 rounded-3xl shadow-card p-4 flex items-center gap-3 border border-cream-200">
       <div className="w-10 h-10 rounded-2xl bg-sage-300/20 flex items-center justify-center flex-shrink-0">
-        <span className="text-xl">🌿</span>
+        <span className="text-xl">🎧</span>
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-semibold text-stone-800">Add to home screen</p>
@@ -58,7 +58,7 @@ export default function PWAInstallBanner() {
         <Download size={12} />
         Install
       </button>
-      <button onClick={dismiss} className="flex-shrink-0 text-stone-300 active:opacity-60">
+      <button onClick={dismiss} className="flex-shrink-0 text-stone-400 active:opacity-60">
         <X size={16} />
       </button>
     </div>

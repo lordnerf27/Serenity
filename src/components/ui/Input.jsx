@@ -9,8 +9,8 @@ export default function Input({ label, error, className = '', ...props }) {
       <input
         className={`w-full px-4 py-3.5 rounded-2xl bg-cream-100 border border-transparent
           text-stone-800 text-sm placeholder:text-stone-400
-          focus:outline-none focus:border-sage-300 focus:bg-white transition-all duration-200
-          ${error ? 'border-red-300' : ''}
+          focus:outline-none focus:border-sage-300 focus:bg-cream-200 transition-all duration-200
+          ${error ? 'border-red-400/50' : ''}
           ${className}`}
         {...props}
       />

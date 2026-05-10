@@ -28,17 +28,17 @@ export default function Sleep() {
             >
               <span className="text-3xl block mb-3">{s.emoji}</span>
               <p className="font-semibold text-stone-800 text-sm leading-snug">{s.title}</p>
-              <p className="text-stone-500 text-xs mt-0.5 leading-snug">{s.desc}</p>
+              <p className="text-stone-600 text-xs mt-0.5 leading-snug">{s.desc}</p>
 
               {!isFree && (
-                <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-white/70 flex items-center justify-center">
+                <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-cream-100/70 flex items-center justify-center">
                   <Lock size={11} className="text-stone-400" />
                 </div>
               )}
 
               {isFree && (
                 <div className="mt-3">
-                  <span className="text-[9px] font-semibold text-emerald-500 bg-emerald-50 px-2 py-0.5 rounded-full">
+                  <span className="text-[9px] font-semibold text-emerald-400 bg-emerald-900/30 px-2 py-0.5 rounded-full">
                     FREE
                   </span>
                 </div>
@@ -48,12 +48,12 @@ export default function Sleep() {
         })}
       </div>
 
-      <div className="mt-6 bg-gradient-to-br from-indigo-50 to-blue-50 rounded-3xl p-5">
-        <p className="text-sm font-semibold text-stone-700">Unlock all 8 sounds</p>
+      <div className="mt-6 bg-gradient-to-br from-indigo-900/30 to-blue-900/20 rounded-3xl p-5">
+        <p className="text-sm font-semibold text-stone-800">Unlock all 8 sounds</p>
         <p className="text-xs text-stone-400 mt-1 leading-relaxed">
           Upgrade to Serenity Pro for the full sound library and new sounds added regularly.
         </p>
-        <button className="mt-3 text-xs font-semibold text-sage-500 bg-white rounded-2xl px-4 py-2 shadow-soft">
+        <button className="mt-3 text-xs font-semibold text-sage-500 bg-cream-100 rounded-2xl px-4 py-2 shadow-soft">
           Learn more
         </button>
       </div>

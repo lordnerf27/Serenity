@@ -75,7 +75,7 @@ export default function ResetPassword() {
       <div className="flex-1 flex flex-col justify-center max-w-sm w-full mx-auto">
         <div className="mb-10 text-center">
           <div className="w-16 h-16 rounded-3xl bg-sage-300/20 flex items-center justify-center mb-6 mx-auto">
-            <span className="text-3xl">🌿</span>
+            <span className="text-3xl">🎧</span>
           </div>
           <h1 className="text-2xl font-semibold text-stone-800 tracking-tight">Choose a new password</h1>
           <p className="text-stone-400 text-sm mt-1">Make it something you'll remember</p>
@@ -83,7 +83,7 @@ export default function ResetPassword() {
 
         {!ready && error ? (
           <div className="flex flex-col items-center text-center gap-4 py-8">
-            <div className="bg-red-50 border border-red-100 rounded-2xl px-4 py-3 w-full">
+            <div className="bg-red-900/20 border border-red-800/30 rounded-2xl px-4 py-3 w-full">
               <p className="text-sm text-red-400">{error}</p>
             </div>
             <a href="/forgot-password" className="text-sage-500 font-semibold text-sm">
@@ -92,7 +92,7 @@ export default function ResetPassword() {
           </div>
         ) : !ready ? (
           <div className="flex flex-col items-center gap-3 py-8">
-            <div className="w-6 h-6 rounded-full border-2 border-stone-200 border-t-stone-400 animate-spin" />
+            <div className="w-6 h-6 rounded-full border-2 border-stone-400 border-t-stone-600 animate-spin" />
             <p className="text-stone-400 text-xs">Verifying reset link…</p>
           </div>
         ) : (
@@ -114,7 +114,7 @@ export default function ResetPassword() {
               required
             />
             {error && (
-              <div className="bg-red-50 border border-red-100 rounded-2xl px-4 py-3">
+              <div className="bg-red-900/20 border border-red-800/30 rounded-2xl px-4 py-3">
                 <p className="text-sm text-red-400 text-center">{error}</p>
               </div>
             )}

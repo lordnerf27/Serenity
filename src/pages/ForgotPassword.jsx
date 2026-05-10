@@ -51,7 +51,7 @@ export default function ForgotPassword() {
           <>
             <div className="mb-10 text-center">
               <div className="w-16 h-16 rounded-3xl bg-sage-300/20 flex items-center justify-center mb-6 mx-auto">
-                <span className="text-3xl">🌿</span>
+                <span className="text-3xl">🎧</span>
               </div>
               <h1 className="text-2xl font-semibold text-stone-800 tracking-tight">Reset password</h1>
               <p className="text-stone-400 text-sm mt-1">Enter your email and we'll send a reset link</p>
@@ -67,7 +67,7 @@ export default function ForgotPassword() {
                 required
               />
               {error && (
-                <div className="bg-red-50 border border-red-100 rounded-2xl px-4 py-3">
+                <div className="bg-red-900/20 border border-red-800/30 rounded-2xl px-4 py-3">
                   <p className="text-sm text-red-400 text-center">{error}</p>
                 </div>
               )}

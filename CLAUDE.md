@@ -1,8 +1,8 @@
 # Serenity — Project Context for Claude
 
 ## What this is
-A PWA meditation app built with React + Vite + Tailwind CSS.
-Backend: Supabase (auth + database + storage).
+A **lo-fi meditation** PWA — guided meditation sessions paired with chill lo-fi aesthetics.
+Built with React + Vite + Tailwind CSS. Backend: Supabase (auth + database + storage).
 Deployed on Vercel. Code lives on GitHub: https://github.com/lordnerf27/Serenity
 
 ## Who is Ibrahim
@@ -45,9 +45,14 @@ https://serenity-pi-three.vercel.app
 - /complete — post-session completion screen (with post-session mood check-in)
 
 ## Design language
-Minimalist, light, airy. Palette: cream backgrounds, sage green accents, mist/lavender secondary, warm stone text.
-Mobile-first. Max width container. Rounded corners. Soft shadows.
-Custom Tailwind tokens: cream (50/100/200), sage (300/400/500), mist (300/400), stone (400/600/800)
+Lo-fi, warm, cozy — like a dimly lit room with a warm lamp. Dark mode.
+Palette: deep indigo backgrounds, warm lavender/purple accents, amber secondary, warm off-white text.
+Mobile-first. Max width container. Heavily rounded corners. Soft dark shadows.
+Custom Tailwind tokens:
+- cream (50/100/200) — deep indigo backgrounds (#121019, #1c1a2b, #262435)
+- sage (300/400/500) — warm lavender accent (#c0b0d8, #9a82c0, #7c64a6)
+- mist (300/400) — warm amber secondary (#ecc88e, #d4a85c)
+- stone (400/600/800) — warm off-white text (#68607e, #a59cb8, #e6def2)
 
 ## Coding standards — CRITICAL
 - Always use the most effective, architecturally sound solution.

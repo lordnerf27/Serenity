@@ -9,9 +9,9 @@ const techniques = [
     desc: 'Calm your nervous system',
     detail: 'Used by Navy SEALs to stay calm under pressure.',
     inhale: 4, hold1: 4, exhale: 4, hold2: 4,
-    color: 'from-blue-50 to-cyan-50',
-    accent: 'bg-blue-100',
-    dot: 'bg-blue-300',
+    color: 'from-blue-900/30 to-cyan-900/20',
+    accent: 'bg-blue-900/30',
+    dot: 'bg-blue-400',
   },
   {
     id: '478',
@@ -19,9 +19,9 @@ const techniques = [
     desc: 'Fall asleep faster',
     detail: 'Dr. Weil\'s natural tranquiliser for the nervous system.',
     inhale: 4, hold1: 7, exhale: 8, hold2: 0,
-    color: 'from-violet-50 to-purple-50',
-    accent: 'bg-violet-100',
-    dot: 'bg-violet-300',
+    color: 'from-violet-900/30 to-purple-900/20',
+    accent: 'bg-violet-900/30',
+    dot: 'bg-violet-400',
   },
   {
     id: 'belly',
@@ -29,9 +29,9 @@ const techniques = [
     desc: 'Reduce stress instantly',
     detail: 'Deep diaphragmatic breathing to activate the rest response.',
     inhale: 4, hold1: 0, exhale: 6, hold2: 0,
-    color: 'from-emerald-50 to-green-50',
-    accent: 'bg-emerald-100',
-    dot: 'bg-emerald-300',
+    color: 'from-emerald-900/30 to-green-900/20',
+    accent: 'bg-emerald-900/30',
+    dot: 'bg-emerald-400',
   },
 ]
 
@@ -104,18 +104,18 @@ export default function Breathe() {
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
                     <p className="font-semibold text-stone-800 text-sm">{t.name}</p>
-                    <p className="text-stone-500 text-xs mt-0.5">{t.desc}</p>
+                    <p className="text-stone-600 text-xs mt-0.5">{t.desc}</p>
                     <p className="text-stone-400 text-[10px] mt-1.5 italic">{t.detail}</p>
                     <div className="flex items-center gap-1.5 mt-2">
                       {[t.inhale, t.hold1, t.exhale, t.hold2].filter(Boolean).map((d, idx) => (
-                        <span key={idx} className={`text-[10px] font-medium text-stone-500 ${t.accent} px-2 py-0.5 rounded-full`}>
+                        <span key={idx} className={`text-[10px] font-medium text-stone-600 ${t.accent} px-2 py-0.5 rounded-full`}>
                           {['In', 'Hold', 'Out', 'Hold'].filter((_, j) => [t.inhale, t.hold1, t.exhale, t.hold2][j] > 0)[idx]} {d}s
                         </span>
                       ))}
                     </div>
                   </div>
                   <div className={`w-5 h-5 rounded-full border-2 ml-4 flex-shrink-0 transition-all
-                    ${selected === i ? 'bg-sage-400 border-sage-400' : 'border-stone-200'}`}
+                    ${selected === i ? 'bg-sage-400 border-sage-400' : 'border-stone-400'}`}
                   />
                 </div>
               </button>
@@ -137,17 +137,17 @@ export default function Breathe() {
             <div className={`absolute w-28 h-28 rounded-full bg-sage-300/30 transition-all duration-1000 ease-in-out ${circleSize}`} />
             <div className="absolute flex flex-col items-center gap-1">
               <span className="text-stone-800 font-semibold text-3xl tabular-nums">{count}</span>
-              <span className="text-stone-500 text-sm font-medium">{PHASE_NAMES[phaseIndex]}</span>
+              <span className="text-stone-600 text-sm font-medium">{PHASE_NAMES[phaseIndex]}</span>
             </div>
           </div>
 
-          <p className="text-stone-300 text-sm mb-10">
+          <p className="text-stone-400 text-sm mb-10">
             {cycles} {cycles === 1 ? 'cycle' : 'cycles'} complete
           </p>
 
           <button
             onClick={stop}
-            className="text-sm text-stone-400 font-medium bg-stone-50 border border-stone-100 rounded-2xl px-8 py-3"
+            className="text-sm text-stone-400 font-medium bg-cream-200 border border-cream-200 rounded-2xl px-8 py-3"
           >
             End session
           </button>

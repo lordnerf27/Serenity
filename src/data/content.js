@@ -4,8 +4,8 @@ export const meditationThemes = [
     emoji: '🌊',
     title: 'Deep Calm',
     subtitle: 'Release tension and find stillness',
-    color: 'from-blue-50 to-cyan-50',
-    accent: 'text-blue-400',
+    color: 'from-blue-900/30 to-cyan-900/20',
+    accent: 'text-blue-300',
     sessions: [
       { id: 'dc-1', title: 'Body Scan Release', duration: '5 min', level: 'Beginner', description: 'Slowly release tension from every part of your body.', audioUrl: 'https://ndvsnpxdcjkgeeyogrex.supabase.co/storage/v1/object/public/Audio/5%20min%20track%20-%20calm%20%26%20relaxation.mp3' },
       { id: 'dc-2', title: 'Ocean Breath', duration: '8 min', level: 'Beginner', description: 'Let your breath flow like gentle waves on a shore.' },
@@ -20,8 +20,8 @@ export const meditationThemes = [
     emoji: '🎯',
     title: 'Sharp Focus',
     subtitle: 'Clear your mind, sharpen attention',
-    color: 'from-violet-50 to-purple-50',
-    accent: 'text-violet-400',
+    color: 'from-violet-900/30 to-purple-900/20',
+    accent: 'text-violet-300',
     sessions: [
       { id: 'sf-1', title: 'Single Point', duration: '7 min', level: 'Beginner', description: 'Train your attention on one single anchor point.', audioUrl: 'https://ndvsnpxdcjkgeeyogrex.supabase.co/storage/v1/object/public/Audio/7%20min%20track%20-%20deep%20focus.mp3' },
       { id: 'sf-2', title: 'Clear Mind', duration: '8 min', level: 'Beginner', description: 'Sweep away mental clutter before your work begins.' },
@@ -35,8 +35,8 @@ export const meditationThemes = [
     emoji: '🌙',
     title: 'Restful Sleep',
     subtitle: 'Wind down and drift into rest',
-    color: 'from-indigo-50 to-blue-50',
-    accent: 'text-indigo-400',
+    color: 'from-indigo-900/30 to-blue-900/20',
+    accent: 'text-indigo-300',
     sessions: [
       { id: 'rs-1', title: 'Sleep Preparation', duration: '15 min', level: 'Beginner', description: 'Gentle guidance to prepare your mind and body for sleep.' },
       { id: 'rs-2', title: 'Night Sky Journey', duration: '20 min', level: 'Beginner', description: 'A soothing visualisation under a vast starlit sky.' },
@@ -52,8 +52,8 @@ export const meditationThemes = [
     emoji: '🍃',
     title: 'Ease Anxiety',
     subtitle: 'Let go of worry and breathe easy',
-    color: 'from-green-50 to-emerald-50',
-    accent: 'text-emerald-400',
+    color: 'from-emerald-900/30 to-teal-900/20',
+    accent: 'text-emerald-300',
     sessions: [
       { id: 'ea-1', title: 'Grounding Now', duration: '10 min', level: 'Beginner', description: 'Come back to the present moment and feel safe.', audioUrl: 'https://ndvsnpxdcjkgeeyogrex.supabase.co/storage/v1/object/public/Audio/10%20min%20track%20-%20ANXIETY.mp3' },
       { id: 'ea-2', title: 'Worry Release', duration: '12 min', level: 'Beginner', description: 'Gently acknowledge and release anxious thoughts.' },
@@ -67,8 +67,8 @@ export const meditationThemes = [
     emoji: '☀️',
     title: 'Morning Start',
     subtitle: 'Begin your day with intention',
-    color: 'from-amber-50 to-yellow-50',
-    accent: 'text-amber-400',
+    color: 'from-amber-900/30 to-yellow-900/20',
+    accent: 'text-amber-300',
     sessions: [
       { id: 'ms-1', title: 'Rise and Arrive', duration: '5 min', level: 'Beginner', description: 'A gentle arrival into your morning.' },
       { id: 'ms-2', title: 'Set Your Intention', duration: '8 min', level: 'Beginner', description: 'Plant the seed of how you want your day to feel.' },
@@ -81,8 +81,8 @@ export const meditationThemes = [
     emoji: '🌸',
     title: 'Self-Compassion',
     subtitle: 'Be gentle and kind to yourself',
-    color: 'from-rose-50 to-pink-50',
-    accent: 'text-rose-400',
+    color: 'from-rose-900/30 to-pink-900/20',
+    accent: 'text-rose-300',
     sessions: [
       { id: 'sc-1', title: 'Loving Kindness', duration: '12 min', level: 'Beginner', description: 'Direct warmth and care toward yourself and others.' },
       { id: 'sc-2', title: 'Enough as You Are', duration: '10 min', level: 'All levels', description: 'A reminder that you are already whole and worthy.' },
@@ -93,14 +93,14 @@ export const meditationThemes = [
 ]
 
 export const sleepSounds = [
-  { id: 'rain',    emoji: '🌧️', title: 'Gentle Rain',     desc: 'Soft rainfall on leaves',        color: 'from-slate-50 to-blue-50' },
-  { id: 'ocean',   emoji: '🌊', title: 'Ocean Waves',     desc: 'Rhythmic shore sounds',           color: 'from-cyan-50 to-blue-50' },
-  { id: 'forest',  emoji: '🌲', title: 'Forest Night',    desc: 'Crickets and rustling trees',     color: 'from-green-50 to-emerald-50' },
-  { id: 'fire',    emoji: '🔥', title: 'Crackling Fire',  desc: 'Warm fireside ambience',          color: 'from-orange-50 to-amber-50' },
-  { id: 'cafe',    emoji: '☕', title: 'Café Murmur',     desc: 'Soft background chatter',         color: 'from-amber-50 to-yellow-50' },
-  { id: 'wind',    emoji: '💨', title: 'Mountain Wind',   desc: 'Cool high-altitude breeze',       color: 'from-sky-50 to-indigo-50' },
-  { id: 'stream',  emoji: '🏞️', title: 'Flowing Stream', desc: 'Babbling brook sounds',           color: 'from-teal-50 to-cyan-50' },
-  { id: 'white',   emoji: '⬜', title: 'White Noise',     desc: 'Pure steady noise for focus',     color: 'from-gray-50 to-slate-50' },
+  { id: 'rain',    emoji: '🌧️', title: 'Gentle Rain',     desc: 'Soft rainfall on leaves',        color: 'from-slate-900/30 to-blue-900/20' },
+  { id: 'ocean',   emoji: '🌊', title: 'Ocean Waves',     desc: 'Rhythmic shore sounds',           color: 'from-cyan-900/30 to-blue-900/20' },
+  { id: 'forest',  emoji: '🌲', title: 'Forest Night',    desc: 'Crickets and rustling trees',     color: 'from-green-900/30 to-emerald-900/20' },
+  { id: 'fire',    emoji: '🔥', title: 'Crackling Fire',  desc: 'Warm fireside ambience',          color: 'from-orange-900/30 to-amber-900/20' },
+  { id: 'cafe',    emoji: '☕', title: 'Café Murmur',     desc: 'Soft background chatter',         color: 'from-amber-900/30 to-yellow-900/20' },
+  { id: 'wind',    emoji: '💨', title: 'Mountain Wind',   desc: 'Cool high-altitude breeze',       color: 'from-sky-900/30 to-indigo-900/20' },
+  { id: 'stream',  emoji: '🏞️', title: 'Flowing Stream', desc: 'Babbling brook sounds',           color: 'from-teal-900/30 to-cyan-900/20' },
+  { id: 'white',   emoji: '⬜', title: 'White Noise',     desc: 'Pure steady noise for focus',     color: 'from-gray-900/30 to-slate-900/20' },
 ]
 
 export const dailyQuotes = [

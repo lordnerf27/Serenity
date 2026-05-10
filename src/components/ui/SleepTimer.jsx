@@ -53,26 +53,26 @@ export default function SleepTimer({ onExpire }) {
     <div className="relative">
       <button
         onClick={() => remaining !== null ? cancel() : setOpen(o => !o)}
-        className="flex items-center gap-1.5 text-stone-500 bg-white/50 rounded-2xl px-3 py-1.5 text-xs font-medium active:opacity-60"
+        className="flex items-center gap-1.5 text-stone-600 bg-cream-100/50 rounded-2xl px-3 py-1.5 text-xs font-medium active:opacity-60"
       >
         <Timer size={13} />
         {remaining !== null ? formatRemaining(remaining) : 'Sleep timer'}
       </button>
 
       {open && (
-        <div className="absolute bottom-10 right-0 bg-white rounded-2xl shadow-card overflow-hidden z-10">
+        <div className="absolute bottom-10 right-0 bg-cream-100 rounded-2xl shadow-card overflow-hidden z-10">
           {OPTIONS.map(opt => (
             <button
               key={opt.label}
               onClick={() => start(opt.seconds)}
-              className="block w-full px-5 py-3 text-sm text-stone-700 font-medium text-left hover:bg-cream-100 active:bg-cream-200 transition-colors"
+              className="block w-full px-5 py-3 text-sm text-stone-600 font-medium text-left hover:bg-cream-200 active:bg-cream-200 transition-colors"
             >
               Stop after {opt.label}
             </button>
           ))}
           <button
             onClick={() => setOpen(false)}
-            className="block w-full px-5 py-3 text-sm text-stone-400 text-left border-t border-stone-100 active:bg-cream-100"
+            className="block w-full px-5 py-3 text-sm text-stone-400 text-left border-t border-cream-200 active:bg-cream-200"
           >
             Cancel
           </button>

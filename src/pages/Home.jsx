@@ -10,8 +10,8 @@ const sections = [
   {
     to: '/meditate',
     icon: Sparkles,
-    bg: 'bg-violet-50',
-    iconColor: 'text-violet-400',
+    bg: 'bg-violet-900/20',
+    iconColor: 'text-violet-300',
     title: 'Guided Meditation',
     subtitle: 'Find your calm',
     count: '6 themes',
@@ -19,8 +19,8 @@ const sections = [
   {
     to: '/breathe',
     icon: Wind,
-    bg: 'bg-emerald-50',
-    iconColor: 'text-emerald-400',
+    bg: 'bg-emerald-900/20',
+    iconColor: 'text-emerald-300',
     title: 'Breathing',
     subtitle: 'Reset with your breath',
     count: '3 techniques',
@@ -28,8 +28,8 @@ const sections = [
   {
     to: '/sleep',
     icon: Moon,
-    bg: 'bg-indigo-50',
-    iconColor: 'text-indigo-400',
+    bg: 'bg-indigo-900/20',
+    iconColor: 'text-indigo-300',
     title: 'Sleep Sounds',
     subtitle: 'Drift off peacefully',
     count: '8 sounds',
@@ -90,8 +90,8 @@ export default function Home() {
               <p className="text-stone-400 text-xs mt-0.5">{subtitle}</p>
             </div>
             <div className="flex items-center gap-2 flex-shrink-0">
-              <span className="text-[10px] text-stone-300 font-medium">{count}</span>
-              <ChevronRight size={16} className="text-stone-300" />
+              <span className="text-[10px] text-stone-400 font-medium">{count}</span>
+              <ChevronRight size={16} className="text-stone-400" />
             </div>
           </Card>
         ))}
@@ -107,13 +107,13 @@ export default function Home() {
           className="flex items-center gap-4 py-4"
         >
           <div className="w-12 h-12 rounded-2xl bg-sage-300/20 flex items-center justify-center flex-shrink-0 text-2xl">
-            {lastTheme?.emoji ?? '🌿'}
+            {lastTheme?.emoji ?? '🎧'}
           </div>
           <div className="flex-1 min-w-0">
             <p className="font-semibold text-stone-800 text-sm truncate">{lastSession.session_title}</p>
             <p className="text-stone-400 text-xs mt-0.5">{lastTheme?.title ?? 'Meditation'}</p>
           </div>
-          <ChevronRight size={16} className="text-stone-300 flex-shrink-0" />
+          <ChevronRight size={16} className="text-stone-400 flex-shrink-0" />
         </Card>
       ) : (
         <Card className="flex items-center gap-4 py-4 opacity-40">

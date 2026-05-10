@@ -26,7 +26,7 @@ export default function MoodSelector({ prompt, onSelect, onSkip }) {
           <button
             key={value}
             onClick={() => onSelect(value)}
-            className="flex flex-col items-center gap-1.5 px-2.5 py-3 rounded-2xl active:scale-90 hover:bg-white/60 transition-all"
+            className="flex flex-col items-center gap-1.5 px-2.5 py-3 rounded-2xl active:scale-90 hover:bg-cream-200/60 transition-all"
           >
             <span className="text-3xl">{emoji}</span>
             <span className="text-[10px] text-stone-400 font-medium">{label}</span>
@@ -37,7 +37,7 @@ export default function MoodSelector({ prompt, onSelect, onSkip }) {
       {onSkip && (
         <button
           onClick={onSkip}
-          className="text-xs text-stone-300 active:text-stone-400 transition-colors"
+          className="text-xs text-stone-400 active:text-stone-600 transition-colors"
         >
           Skip
         </button>

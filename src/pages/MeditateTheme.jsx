@@ -17,7 +17,7 @@ export default function MeditateTheme() {
       <div className={`bg-gradient-to-br ${theme.color} px-5 pt-14 pb-8`}>
         <button
           onClick={() => navigate('/meditate')}
-          className="flex items-center gap-1.5 text-stone-500 text-sm mb-6 active:opacity-60"
+          className="flex items-center gap-1.5 text-stone-600 text-sm mb-6 active:opacity-60"
         >
           <ArrowLeft size={16} />
           Back
@@ -26,7 +26,7 @@ export default function MeditateTheme() {
           <span className="text-5xl">{theme.emoji}</span>
           <div>
             <h1 className="text-xl font-semibold text-stone-800 tracking-tight">{theme.title}</h1>
-            <p className="text-stone-500 text-sm mt-0.5">{theme.subtitle}</p>
+            <p className="text-stone-600 text-sm mt-0.5">{theme.subtitle}</p>
             <p className="text-stone-400 text-xs mt-1">{theme.sessions.length} sessions</p>
           </div>
         </div>
@@ -45,16 +45,16 @@ export default function MeditateTheme() {
               <button
                 key={session.id}
                 onClick={() => isFree && navigate(`/player/${theme.id}/${session.id}`)}
-                className={`w-full bg-white rounded-3xl shadow-soft p-4 text-left transition-all duration-150
+                className={`w-full bg-cream-100 rounded-3xl shadow-soft p-4 text-left transition-all duration-150
                   ${isFree ? 'active:scale-[0.98] cursor-pointer' : 'opacity-60 cursor-default'}`}
               >
                 <div className="flex items-center gap-4">
                   {/* Play / Lock icon */}
                   <div className={`w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0
-                    ${isFree ? `bg-gradient-to-br ${theme.color}` : 'bg-stone-100'}`}>
+                    ${isFree ? `bg-gradient-to-br ${theme.color}` : 'bg-cream-200'}`}>
                     {isFree
                       ? <Play size={16} className={`${theme.accent} ml-0.5`} fill="currentColor" />
-                      : <Lock size={14} className="text-stone-300" />
+                      : <Lock size={14} className="text-stone-400" />
                     }
                   </div>
 
@@ -69,13 +69,13 @@ export default function MeditateTheme() {
                         <Clock size={10} />
                         {session.duration}
                       </span>
-                      <span className="text-[10px] text-stone-300">·</span>
+                      <span className="text-[10px] text-stone-400">·</span>
                       <span className="text-[10px] text-stone-400">{session.level}</span>
                     </div>
                   </div>
 
                   {!isFree && (
-                    <span className="text-[9px] font-semibold text-stone-300 bg-stone-100 px-2 py-0.5 rounded-full flex-shrink-0">
+                    <span className="text-[9px] font-semibold text-stone-400 bg-cream-200 px-2 py-0.5 rounded-full flex-shrink-0">
                       PRO
                     </span>
                   )}
@@ -87,11 +87,11 @@ export default function MeditateTheme() {
 
         {/* Upgrade nudge */}
         <div className="mt-6 bg-gradient-to-br from-sage-300/15 to-mist-300/15 rounded-3xl p-5 border border-sage-300/20">
-          <p className="text-sm font-semibold text-stone-700">Unlock all sessions</p>
+          <p className="text-sm font-semibold text-stone-800">Unlock all sessions</p>
           <p className="text-xs text-stone-400 mt-1 leading-relaxed">
             Upgrade to Serenity Pro to access every session across all themes.
           </p>
-          <button className="mt-3 text-xs font-semibold text-sage-500 bg-white rounded-2xl px-4 py-2 shadow-soft">
+          <button className="mt-3 text-xs font-semibold text-sage-500 bg-cream-100 rounded-2xl px-4 py-2 shadow-soft">
             Learn more
           </button>
         </div>

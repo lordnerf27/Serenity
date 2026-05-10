@@ -5,23 +5,23 @@ export default {
     extend: {
       colors: {
         cream: {
-          50:  '#FAFAF8',
-          100: '#F5F0EB',
-          200: '#EDE6DC',
+          50:  '#121019',
+          100: '#1c1a2b',
+          200: '#262435',
         },
         sage: {
-          300: '#B8D0C4',
-          400: '#8BAF9E',
-          500: '#6A9485',
+          300: '#c0b0d8',
+          400: '#9a82c0',
+          500: '#7c64a6',
         },
         mist: {
-          300: '#D6CCE8',
-          400: '#B8A8D4',
+          300: '#ecc88e',
+          400: '#d4a85c',
         },
         stone: {
-          400: '#9B9590',
-          600: '#6B6560',
-          800: '#3A3530',
+          400: '#68607e',
+          600: '#a59cb8',
+          800: '#e6def2',
         },
       },
       fontFamily: {
@@ -33,8 +33,8 @@ export default {
         '4xl': '2rem',
       },
       boxShadow: {
-        soft: '0 2px 20px rgba(0,0,0,0.06)',
-        card: '0 4px 24px rgba(0,0,0,0.08)',
+        soft: '0 2px 20px rgba(0,0,0,0.3)',
+        card: '0 4px 24px rgba(0,0,0,0.35)',
       },
     },
   },
